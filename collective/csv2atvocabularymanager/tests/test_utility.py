@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+
+import os
+import unittest
+
+from zope.component import queryUtility, getMultiAdapter
+from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import login
+
+from collective.csv2atvocabularymanager.testing import CSV2ATVM_INTEGRATION_TESTING
+from collective.csv2atvocabularymanager.csv_import import 
+from collective.csv2atvocabularymanager.csv_import import Entry
+from collective.csv2atvocabularymanager.csv_import import HAS_LINGUAPLONE
+
+class TestUtility(unittest.TestCase):
+
+    layer = CSV2ATVM_INTEGRATION_TESTING
+
+    def test_basic_registration(self):
+        portal = self.layer['portal']
+        portal_vocabularies = portal.portal_vocabularies
+        base_path = os.path.join(os.path.dirname( __file__ ), 'csv')
+        (portal_vocabularies, base_path, 'example1', "Foo 1",
+                          description="Simple foo vocabulary")
+        self.assertTrue('example1' in portal.portal_vocabularies.objectIds())
+        self.assertEqual(portal.portal_vocabularies.example1.Title(), "Foo 1")
+        self.assertEqual(portal.portal_vocabularies.example1.item_1.Title(), "Item one")
+        self.assertEqual(portal.portal_vocabularies.example1.item_1.Language(), "en")
+
+    def test_registration_with_lang_suffix(self):
+        portal = self.layer['portal']
+        portal_vocabularies = portal.portal_vocabularies
+        base_path = os.path.join(os.path.dirname( __file__ ), 'csv')
+        (portal_vocabularies, base_path, 'example1', "Foo 1",
+                          change_master_with_language_id=True)
+        self.assertTrue('item_1-en' in portal.portal_vocabularies.example1.objectIds())
+
+    def test_sort_control(self):
+        portal = self.layer['portal']
+        portal_vocabularies = portal.portal_vocabularies
+        base_path = os.path.join(os.path.dirname( __file__ ), 'csv')
+        (portal_vocabularies, base_path, 'example2', "Foo 2")
+        self.assertEqual(portal.portal_vocabularies.example2.objectIds(),
+                         ['item_3', 'item_1', 'item_2'])
+        self.assertEqual(portal.portal_vocabularies.example2.getVocabularyLines(),
+                         [('item_1', 'Item one'), ('item_3', 'Item three'), ('item_2', 'Item two')])
+        portal_vocabularies.manage_delObjects('example2')
+        (portal_vocabularies, base_path, 'example2', "Foo 2",
+                          sortMethod='getObjPositionInParent')
+        self.assertEqual(portal.portal_vocabularies.example2.objectIds(),
+                         ['item_3', 'item_1', 'item_2'])
+        self.assertEqual(portal.portal_vocabularies.example2.getVocabularyLines(),
+                         [('item_3', 'Item three'), ('item_1', 'Item one'), ('item_2', 'Item two')])
+        
+
