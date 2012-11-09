@@ -3,14 +3,8 @@
 import os
 import unittest
 
-from zope.component import queryUtility, getMultiAdapter
-from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import login
-
 from collective.csv2atvocabularymanager.testing import CSV2ATVM_INTEGRATION_TESTING
 from collective.csv2atvocabularymanager.csv_import import createVocabulary
-from collective.csv2atvocabularymanager.csv_import import _createVocabularyEntry
-from collective.csv2atvocabularymanager.csv_import import HAS_LINGUAPLONE
 
 class TestUtility(unittest.TestCase):
 

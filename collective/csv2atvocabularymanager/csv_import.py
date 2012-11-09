@@ -43,7 +43,6 @@ def createVocabulary(portal_vocabularies, base_path, vid, title, description='',
         for row in vocReader:
             if firstLine:
                 firstLine = False
-                master_language = row[1]
                 languages = row[1:]
                 assert len(row)>1
                 continue
