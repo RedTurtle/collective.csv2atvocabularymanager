@@ -23,6 +23,7 @@ setup(name='collective.csv2atvocabularymanager',
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
         "Framework :: Plone",
+        "Development Status :: 4 - Beta",
         "Framework :: Plone :: 4.2",
         "Programming Language :: Python",
         "Intended Audience :: Developers",
