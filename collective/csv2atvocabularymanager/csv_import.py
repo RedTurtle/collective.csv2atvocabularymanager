@@ -21,7 +21,7 @@ except ImportError:
 from collective.csv2atvocabularymanager import logger
 
 def createVocabulary(portal_vocabularies, base_path, vid, title, description='',
-                     sortMethod='lexicographic_values', type_name='SimpleVocabulary',
+                     type_name='SimpleVocabulary', sortMethod='lexicographic_values',
                      null_values=[], change_master_with_language_id=False):
 
     csvpath = os.path.join(base_path, "%s.csv" % vid)
