@@ -87,14 +87,15 @@ the one with portal default language.
 The real power of language columns will be used if you also install *LinguaPlone*.
 In that way you will create translations of vocabulary terms.
 
-Final note
-==========
+Final notes
+===========
 
 Please, keep in mind that ATVocabularyManager already support Generic Setup integration for creating vocabularies
 at install time.
 
 However you are foced to use the "*IMS VDEX Vocabulary File*". 
 
+Please note also that vocabulary implementation from ATVM already provides a ``importCSV`` method.
 
 Authors
 =======
